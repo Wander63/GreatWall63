@@ -9,13 +9,15 @@ namespace CheckOutLib
 {
     public class Checkout : ICheckout
     {
-        private List<char> _items;
+        private Dictionary<char, decimal> _unitPrices;
+        private Dictionary<char, int> _itemCounts;
 
-        public int ScannedItemCount { get => _items.Count; set => throw new NotImplementedException(); }
+        public int ScannedItemCount { get => _itemCounts.Count; set => throw new NotImplementedException(); }
 
-        public Checkout(List<Char> items)
+        public Checkout(Dictionary<Char, decimal> unitPrices, Dictionary<char, int> itemCounts)
         {
-            _items = items;
+            _unitPrices = unitPrices;
+            _itemCounts = itemCounts;
         }
         public decimal GetTotalPrice()
         {
@@ -26,7 +28,18 @@ namespace CheckOutLib
         {
             if (item.Length != 1) throw new ArgumentException("Invalid item name.");
 
-            _items.Add(item[0]);
+            var itemName = char.ToUpper(item[0]);
+
+            if(!_unitPrices.ContainsKey(itemName))
+            {
+                throw new ArgumentException($"{itemName} does not exist.");
+            }
+            if(!_itemCounts.ContainsKey(itemName))
+            {
+                _itemCounts.Add(itemName, 0);
+            }
+
+            _itemCounts[itemName]++;
         }
     }
 }

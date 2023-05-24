@@ -8,14 +8,22 @@ namespace CheckOutTesting
         [SetUp]
         public void Setup()
         {
-            checkout=new Checkout(new List<char>());
+            var itemCounts = new Dictionary<char, int>();
+            var unitPrices = new Dictionary<char, decimal>
+            {
+                { 'A', 50 },
+                { 'B', 30 },
+                { 'C', 20 },
+                { 'D', 15 }
+            };
+            checkout = new Checkout(unitPrices, itemCounts);
         }
 
         [Test]
         public void ScanAddOneItem()
         {
             checkout.Scan("A");
-            
+
             Assert.AreEqual(1, checkout.ScannedItemCount);
         }
         [Test]
@@ -31,7 +39,7 @@ namespace CheckOutTesting
         [Test]
         public void ScanAddInvalidItems()
         {
-            
+
             try
             {
                 checkout.Scan("Abb");
@@ -47,7 +55,7 @@ namespace CheckOutTesting
         public void ScanOneItemAndCheckPrice()
         {
             checkout.Scan("A");
-            decimal totalPrice=checkout.GetTotalPrice();
+            decimal totalPrice = checkout.GetTotalPrice();
             Assert.AreEqual(50M, totalPrice);
         }
 
