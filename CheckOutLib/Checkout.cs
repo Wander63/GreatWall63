@@ -27,7 +27,7 @@ namespace CheckOutLib
                 int count = _itemCounts[item];
                 decimal unitPrice = _unitPrices[item];
 
-                totalPrice+= unitPrice;
+                totalPrice += unitPrice * count;
             }
 
             return totalPrice;
@@ -39,11 +39,11 @@ namespace CheckOutLib
 
             var itemName = char.ToUpper(item[0]);
 
-            if(!_unitPrices.ContainsKey(itemName))
+            if (!_unitPrices.ContainsKey(itemName))
             {
                 throw new ArgumentException($"{itemName} does not exist.");
             }
-            if(!_itemCounts.ContainsKey(itemName))
+            if (!_itemCounts.ContainsKey(itemName))
             {
                 _itemCounts.Add(itemName, 0);
             }
