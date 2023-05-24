@@ -88,5 +88,21 @@ namespace CheckOutTesting
             Assert.AreEqual(150M, totalPrice);
         }
 
+        [Test]
+        public void ScanMultipleItemsAndSpecialOfferFinalTesting()
+        {
+            // Scan items
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+            checkout.Scan("A");
+            checkout.Scan("B");
+
+            decimal totalPrice = checkout.GetTotalPrice();
+            Assert.AreEqual(180M, totalPrice);
+        }
+
+
     }
 }
