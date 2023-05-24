@@ -21,7 +21,16 @@ namespace CheckOutLib
         }
         public decimal GetTotalPrice()
         {
-            throw new NotImplementedException();
+            decimal totalPrice = 0M;
+            foreach (var item in _itemCounts.Keys)
+            {
+                int count = _itemCounts[item];
+                decimal unitPrice = _unitPrices[item];
+
+                totalPrice+= unitPrice;
+            }
+
+            return totalPrice;
         }
 
         public void Scan(string item)
