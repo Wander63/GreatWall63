@@ -16,7 +16,12 @@ namespace CheckOutTesting
                 { 'C', 20 },
                 { 'D', 15 }
             };
-            checkout = new Checkout(unitPrices, itemCounts);
+            Dictionary<char, Tuple<int, decimal>> specialPrices = new Dictionary<char, Tuple<int, decimal>>()
+                {
+                    {'A', new Tuple<int, decimal>(3, 130)},
+                    {'B', new Tuple<int, decimal>(2, 45)}
+                };
+            checkout = new Checkout(unitPrices, itemCounts, specialPrices);
         }
 
         [Test]

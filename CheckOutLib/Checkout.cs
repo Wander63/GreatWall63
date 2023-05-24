@@ -11,13 +11,15 @@ namespace CheckOutLib
     {
         private Dictionary<char, decimal> _unitPrices;
         private Dictionary<char, int> _itemCounts;
+        private Dictionary<char, Tuple<int, decimal>> _specialPrices;
 
         public int ScannedItemCount { get => _itemCounts.Count; set => throw new NotImplementedException(); }
 
-        public Checkout(Dictionary<Char, decimal> unitPrices, Dictionary<char, int> itemCounts)
+        public Checkout(Dictionary<Char, decimal> unitPrices, Dictionary<char, int> itemCounts, Dictionary<char, Tuple<int, decimal>> specialPrices)
         {
             _unitPrices = unitPrices;
             _itemCounts = itemCounts;
+            _specialPrices = specialPrices;
         }
         public decimal GetTotalPrice()
         {
@@ -26,8 +28,21 @@ namespace CheckOutLib
             {
                 int count = _itemCounts[item];
                 decimal unitPrice = _unitPrices[item];
+                if (_specialPrices.ContainsKey(item))
+                {
+                    Tuple<int, decimal> specialPrice = _specialPrices[item];
+                    int specialCount = specialPrice.Item1;
+                    decimal specialPriceValue = specialPrice.Item2;
 
-                totalPrice += unitPrice * count;
+                    int specialGroupCount = count / specialCount;
+                    int remainingItems = count % specialCount;
+
+                    totalPrice += specialGroupCount * specialPriceValue + remainingItems * unitPrice;
+                }
+                else
+                {
+                    totalPrice += unitPrice * count;
+                }
             }
 
             return totalPrice;
