@@ -72,7 +72,7 @@ namespace CheckOutTesting
             checkout.Scan("B");
             checkout.Scan("A");
             decimal totalPrice = checkout.GetTotalPrice();
-            Assert.AreEqual(180M, totalPrice);
+            Assert.AreEqual(160M, totalPrice);
         }
 
         [Test]
