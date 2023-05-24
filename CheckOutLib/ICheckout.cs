@@ -8,7 +8,7 @@ namespace CheckOutLib
 {
     public interface ICheckout
     {
-        decimal ScannedItemCount { get; set; }
+        int ScannedItemCount { get; set; }
 
         void Scan(string item);
         decimal GetTotalPrice();

@@ -8,7 +8,7 @@ namespace CheckOutTesting
         [SetUp]
         public void Setup()
         {
-            checkout=new Checkout();
+            checkout=new Checkout(new List<char>());
         }
 
         [Test]
@@ -18,5 +18,22 @@ namespace CheckOutTesting
             
             Assert.AreEqual(1, checkout.ScannedItemCount);
         }
+        [Test]
+        public void ScanAddThreeItems()
+        {
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("D");
+            Assert.AreEqual(3, checkout.ScannedItemCount);
+        }
+
+        [Test]
+        public void ScanAddInvalidItems()
+        {
+            checkout.Scan("Abb");
+           
+            Assert.AreEqual(1, checkout.ScannedItemCount);
+        }
+
     }
 }
