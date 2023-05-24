@@ -13,8 +13,7 @@ namespace CheckOutLib
         private Dictionary<char, int> _itemCounts;
         private Dictionary<char, Tuple<int, decimal>> _specialPrices;
 
-        public int ScannedItemCount { get => _itemCounts.Count; set => throw new NotImplementedException(); }
-
+       
         public Checkout(Dictionary<Char, decimal> unitPrices, Dictionary<char, int> itemCounts, Dictionary<char, Tuple<int, decimal>> specialPrices)
         {
             _unitPrices = unitPrices;

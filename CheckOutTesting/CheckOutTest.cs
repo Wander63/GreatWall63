@@ -28,8 +28,8 @@ namespace CheckOutTesting
         public void ScanAddOneItem()
         {
             checkout.Scan("A");
-
-            Assert.AreEqual(1, checkout.ScannedItemCount);
+            decimal totalPrice=checkout.GetTotalPrice();
+            Assert.AreEqual(50, totalPrice);
         }
         [Test]
         public void ScanAddThreeItems()
@@ -37,7 +37,8 @@ namespace CheckOutTesting
             checkout.Scan("A");
             checkout.Scan("B");
             checkout.Scan("D");
-            Assert.AreEqual(3, checkout.ScannedItemCount);
+            decimal totalPrice=checkout.GetTotalPrice(); 
+            Assert.AreEqual(95, totalPrice);
         }
 
 
