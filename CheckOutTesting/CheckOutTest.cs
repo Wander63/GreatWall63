@@ -27,13 +27,22 @@ namespace CheckOutTesting
             Assert.AreEqual(3, checkout.ScannedItemCount);
         }
 
+
         [Test]
         public void ScanAddInvalidItems()
         {
-            checkout.Scan("Abb");
-           
-            Assert.AreEqual(1, checkout.ScannedItemCount);
+            
+            try
+            {
+                checkout.Scan("Abb");
+                Assert.Fail("Invalid item name.");
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex is ArgumentException);
+            }
         }
+
 
     }
 }
