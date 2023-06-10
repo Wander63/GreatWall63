@@ -12,19 +12,21 @@ namespace CheckOutLib
         private Dictionary<char, decimal> _unitPrices;
         private Dictionary<char, int> _itemCounts;
         private Dictionary<char, Tuple<int, decimal>> _specialPrices;
+        private char _bagItem;
 
 
-        public Checkout(Dictionary<Char, decimal> unitPrices, Dictionary<char, int> itemCounts, Dictionary<char, Tuple<int, decimal>> specialPrices)
+        public Checkout(Dictionary<Char, decimal> unitPrices, Dictionary<char, int> itemCounts, Dictionary<char, Tuple<int, decimal>> specialPrices, char bagItem)
         {
             _unitPrices = unitPrices;
             _itemCounts = itemCounts;
             _specialPrices = specialPrices;
+            _bagItem = bagItem;
         }
         public decimal GetTotalPrice()
         {
             decimal totalPrice = 0M;
             int totalItemsCount = 0;
-            Tuple<int, decimal> bagSepcialPrice = _specialPrices['&'];
+            Tuple<int, decimal> bagSepcialPrice = _specialPrices[_bagItem];
             foreach (var item in _itemCounts.Keys)
             {
                 int count = _itemCounts[item];
@@ -49,7 +51,7 @@ namespace CheckOutLib
             }
 
             var sepcailBagDiscountQuantities = bagSepcialPrice.Item1;
-            totalPrice += ((int)totalItemsCount / sepcailBagDiscountQuantities) * _unitPrices['&'] + (totalItemsCount % sepcailBagDiscountQuantities) * bagSepcialPrice.Item2;
+            totalPrice += ((int)totalItemsCount / sepcailBagDiscountQuantities) * _unitPrices[_bagItem] + (totalItemsCount % sepcailBagDiscountQuantities) * bagSepcialPrice.Item2;
 
             return totalPrice;
         }

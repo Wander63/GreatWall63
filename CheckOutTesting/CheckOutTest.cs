@@ -24,7 +24,7 @@ namespace CheckOutTesting
                     {'B', new Tuple<int, decimal>(2, 45)},
                  {'&', new Tuple<int, decimal>(5, 5)}
                 };
-            checkout = new Checkout(unitPrices, itemCounts, specialPrices);
+            checkout = new Checkout(unitPrices, itemCounts, specialPrices, '&');
         }
 
         [Test]
