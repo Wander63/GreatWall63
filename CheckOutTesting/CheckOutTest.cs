@@ -14,12 +14,15 @@ namespace CheckOutTesting
                 { 'A', 50 },
                 { 'B', 30 },
                 { 'C', 20 },
-                { 'D', 15 }
+                { 'D', 15 },
+                {'&', 5 }
             };
+
             Dictionary<char, Tuple<int, decimal>> specialPrices = new Dictionary<char, Tuple<int, decimal>>()
                 {
                     {'A', new Tuple<int, decimal>(3, 130)},
-                    {'B', new Tuple<int, decimal>(2, 45)}
+                    {'B', new Tuple<int, decimal>(2, 45)},
+                 {'&', new Tuple<int, decimal>(5, 5)}
                 };
             checkout = new Checkout(unitPrices, itemCounts, specialPrices);
         }
@@ -28,8 +31,8 @@ namespace CheckOutTesting
         public void ScanAddOneItem()
         {
             checkout.Scan("A");
-            decimal totalPrice=checkout.GetTotalPrice();
-            Assert.AreEqual(50, totalPrice);
+            decimal totalPrice = checkout.GetTotalPrice();
+            Assert.AreEqual(55, totalPrice);
         }
         [Test]
         public void ScanAddThreeItems()
@@ -37,8 +40,8 @@ namespace CheckOutTesting
             checkout.Scan("A");
             checkout.Scan("B");
             checkout.Scan("D");
-            decimal totalPrice=checkout.GetTotalPrice(); 
-            Assert.AreEqual(95, totalPrice);
+            decimal totalPrice = checkout.GetTotalPrice();
+            Assert.AreEqual(110, totalPrice);
         }
 
 
@@ -62,7 +65,7 @@ namespace CheckOutTesting
         {
             checkout.Scan("A");
             decimal totalPrice = checkout.GetTotalPrice();
-            Assert.AreEqual(50M, totalPrice);
+            Assert.AreEqual(55M, totalPrice);
         }
 
         [Test]
@@ -73,7 +76,7 @@ namespace CheckOutTesting
             checkout.Scan("B");
             checkout.Scan("A");
             decimal totalPrice = checkout.GetTotalPrice();
-            Assert.AreEqual(160M, totalPrice);
+            Assert.AreEqual(180M, totalPrice);
         }
 
         [Test]
@@ -85,7 +88,7 @@ namespace CheckOutTesting
             checkout.Scan("A");
 
             decimal totalPrice = checkout.GetTotalPrice();
-            Assert.AreEqual(150M, totalPrice);
+            Assert.AreEqual(170M, totalPrice);
         }
 
         [Test]
@@ -100,7 +103,7 @@ namespace CheckOutTesting
             checkout.Scan("B");
 
             decimal totalPrice = checkout.GetTotalPrice();
-            Assert.AreEqual(180M, totalPrice);
+            Assert.AreEqual(190M, totalPrice);
         }
 
 
